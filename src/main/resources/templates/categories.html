@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="row mt-4">
+    <div class="col-md-3" th:include="include/adminside">
+    </div>
+    <div class="col-md-8">
+
+        <table class="table">
+            <div class="breadcrumb">
+                <div class="col">
+                    <p>List of al Categories</p>
+                </div>
+                <div class="col col-sm-2">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                        + Add New
+                    </button>
+                </div>
+            </div>
+            <thead>
+            <tr>
+                <th style="width: 250px">Id</th>
+                <th style="width: 500px">Name</th>
+                <th>OPERATION</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cat:${categories}">
+                <td th:text="${cat.id}"></td>
+                <td th:text="${cat.name}"></td>
+                <td class="d-flex">
+                    <a class="btn btn-primary text-white mr-2" th:href="@{'/editCategory/'+${cat.id}}">Edit</a>
+                    <form th:action="@{/deleteCategory}" method="post">
+                        <input type="hidden" th:value="${cat.id}" name="id">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form th:action="@{'/saveCategory'}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ADD NEW ITEM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="from-group mt-3">
+                        <label>NAME</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="from-group mt-3">
+                        <label>Logo Url</label>
+                        <input type="url" class="form-control" name="logoURL" value=" ">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

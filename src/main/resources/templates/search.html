@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div th:include="include/navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 mt-4" th:include="include/rigthSide"></div>
+        <div class="col-md-9 mt-4">
+            <form class="form-inline mb-4">
+                <input placeholder="Name: " th:value="${name}" class="form-control mr-4" style="width: 25%;" type="text"  aria-label="Search" name = "name">
+                <select name="brand" class="form-control mr-4">
+                    <option value="">All</option>
+                    <option th:value="${br.name}" th:each="br:${brands}" th:selected="${br.name.equals(brand)}" th:text="${br.name}"></option>
+                </select>
+                <input placeholder="Price From: " th:value="${priceFrom}" class="form-control mr-4" style="width: 15%;" type="text"  aria-label="Search" name = "priceFrom">
+                <input placeholder="Price To: " th:value="${priceTo}" class="form-control mr-4" style="width: 15%;" type="text"  aria-label="Search" name = "priceTo" >
+
+                <button class="btn btn-outline-light text-uppercase "  type="submit" style="background: #156145; width: 15%;">Search</button>
+            </form>
+            <div class="row">
+                <div class="col-md-6">
+                <h4>Search Result: </h4></div>
+                <div class="col-md-6 text-right">
+                <p>Order by price:</p>
+                    <a th:href="'/search?name='+${name}+'&brand='+${brand}+'&priceFrom='+${priceFrom}+'&priceTo='+${priceTo}+'&ordering=asc'" class="btn btn-secondary">Ascending</a>
+                    <a th:href="'/search?name='+${name}+'&brand='+${brand}+'&priceFrom='+${priceFrom}+'&priceTo='+${priceTo}+'&ordering=des'" class="btn btn-secondary">Descending</a>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-4 mb-4" th:each="item:${items}">
+                    <div class="card">
+                        <img class="card-img-top" th:src="${item.getSmallPicURL()}" alt="Card image cap" style="height: 170px">
+                        <div class="card-body">
+                            <a th:href="@{'/details/'+${item.getId()}}" class="card-title" style="font-weight: 500; font-size: 20px;" th:text="${item.getName()}"></a>
+                            <p class="card-text mt-2" style="font-weight: bold" th:text="'$'+${item.getPrice()}"></p>
+                            <p class="card-text" th:text="${item.getDescription()}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

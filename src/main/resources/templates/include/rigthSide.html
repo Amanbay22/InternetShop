@@ -1,0 +1,19 @@
+
+    <div class="card">
+        <div class="card-body pt-2" style="background: #156145; color: white; height: 45px;">
+            <h5 class="card-title">Categories</h5>
+        </div>
+        <ul class="list-group list-group-flush" style="font-weight: bold">
+            <li class="list-group-item"><a style="color: #000 !important; text-decoration: none;" th:href="@{'/search?brand='}">All products</a></li>
+            <li class="list-group-item" th:each="cat:${categories}"><a style="color: #000 !important; text-decoration: none;" th:href="@{'/search?cat='+${cat.id}}" th:text="${cat.name}"></a></li>
+        </ul>
+    </div>
+    <div class="card mt-4">
+        <div class="card-body pt-2" style="background: #156145;color: white; height: 45px; font-size: 15px;">
+            <h5 class="card-title">Brands</h5>
+        </div>
+        <ul class="list-group list-group-flush" style="font-weight: bold">
+            <li class="list-group-item" th:each="brand:${brands}"><a style="color: #000 !important; text-decoration: none;" th:href="@{'/search?brand='+${brand.name}}" th:text="${brand.name}"></a></li>
+
+        </ul>
+    </div>

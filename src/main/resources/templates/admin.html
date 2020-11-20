@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="row mt-4">
+    <div class="col-md-3" th:include="include/adminside">
+</div>
+    <div class="col-md-8" >
+
+<table class="table">
+    <div class="breadcrumb">
+        <div class="col">
+            <p>List of al Items</p>
+        </div>
+        <div class="col col-sm-2">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                + Add New
+            </button>
+        </div>
+    </div>
+    <thead>
+    <tr>
+        <th style="width: 250px">NAME</th>
+        <th style="width: 900px">DESCRIPTION</th>
+        <th style="width: 150px">PRICE</th>
+        <th>OPERATION</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item:${items}">
+        <td th:text="${item.getName()}"></td>
+        <td th:text="${item.getDescription()}"></td>
+        <td th:text="${item.getPrice()}"></td>
+        <td class="d-flex">
+            <a class="btn btn-primary text-white mr-2" th:href="@{'/edit/'+${item.getId()}}">Edit</a>
+            <form th:action="@{/delete}" method="post">
+                <input type="hidden" th:value="${item.getId()}" name="id">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+    </div>
+</div>
+
+<div class="myForm">
+    <form action="#" method="post" th:action="@{/addNew}">
+        <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
+             id="exampleModal" role="dialog"
+             tabindex="-1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New</h5>
+                        <button aria-label="Close" class="close" data-dismiss="modal"
+                                type="button">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label" for="name">Name:</label>
+                            <input class="form-control" id="name" name="name" type="text" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="description">Description:</label>
+                            <textarea class="form-control" id="description" name="description" ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="price">Price:</label>
+                            <input class="form-control" id="price" name="price" type="number" value="0"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="stars">Stars:</label>
+                            <input class="form-control" id="stars" name="stars" type="number" max="5" min="0" value="0"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="pictureUrl">Small Picture Url:</label>
+                            <input class="form-control" id="pictureUrl" name="smallPicURL" type="url" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="pictureUrl1">Big Picture Url:</label>
+                            <input class="form-control" id="pictureUrl1" name="largePicURL" type="url" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="inTopPage">In Top Page</label>
+                            <select class="form-control" id="inTopPage" name="inTopPage">
+                                <option th:value="true" selected>Yes</option>
+                                <option th:value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="brand">Brands:</label>
+                        <select class="form-control" id="brand" name="brand">
+                            <option th:each="brand:${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal"
+                                type="button">Close
+                        </button>
+                        <input class="btn btn-primary" type="submit" value="Add"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
